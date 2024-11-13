@@ -6,7 +6,7 @@ import "./OrdersPage.css";
 
 const OrdersPage = () => {
   const { orders } = useContext(CartContext);
-
+console.log('this: ', orders);
   return (
     <div className="orders-page">
       <h2>Your Orders</h2>

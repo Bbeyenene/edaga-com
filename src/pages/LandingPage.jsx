@@ -26,7 +26,7 @@ const LandingPage = () => {
       <div className="product-grid">
         {products?.map((product) => (
           <div key={product.ProductId} className="product-card">
-            <div className="product-image-container" style={{border:'2px solid red'}}>
+            <div className="product-image-container">
               {product.productImages && product.productImages.length > 0 ? (
                 <Carousel 
                   showThumbs={false} 

@@ -7,7 +7,12 @@ const PaymentForm = ({ paymentInfo, handleInputChange, error }) => (
     {["cardNumber", "expireDate", "cvv", "billingZip"].map((field) => (
       <label key={field}>
         {field.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase())}:
-        <input type="text" name={field} value={paymentInfo[field]} onChange={handleInputChange}  />
+        <input 
+          type="text" 
+          name={field} 
+          value={paymentInfo[field] || ""} // Default to an empty string if paymentInfo[field] is undefined
+          onChange={handleInputChange}  
+        />
       </label>
     ))}
     {error && <p className="error">{error}</p>}

@@ -1,0 +1,27 @@
+{
+    "id": 1,
+    "items": [
+        {
+            "quantity": 10,
+            "ProductId": "0945585e-5ea8-40da-84eb-6929a45ff912",
+            "productDescription": "dgsadg",
+            "productImages": [],
+            "sellerId": "Almaz",
+            "category": "Uncategorized",
+            "createdAt": "2024-11-12T01:40:24.977Z",
+            "price": 10,
+            "productName": "Bluetooth Speaker",
+            "itemsToBuy": 1
+        }
+    ],
+    "totalPrice": 10,
+    "deliveryAddress": {
+        "firstName": "Berhane",
+        "lastName": "Beyene",
+        "street": "3853 Brummel St",
+        "city": "Skokie",
+        "state": "IL",
+        "zipcode": "60076"
+    },
+    "createdAt": "2024-11-13T05:40:39.870Z"
+}

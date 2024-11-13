@@ -1,33 +1,33 @@
+// src/contexts/CartContext.jsx
 import React, { createContext, useState } from "react";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [orders, setOrders] = useState([]); // New state for storing confirmed orders
+  const [orders, setOrders] = useState([]);
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find(item => item.productId === product.productId);
+      const existingItem = prevItems.find((item) => item.ProductId === product.ProductId);
+
       if (existingItem) {
-        // If item exists, increment its quantity
-        return prevItems.map(item =>
-          item.productId === product.productId
-            ? { ...item, quantity: item.quantity + 1 }
+        return prevItems.map((item) =>
+          item.ProductId === product.ProductId
+            ? { ...item, itemsToBuy: item.itemsToBuy + 1 }
             : item
         );
       }
-      // If item does not exist, add it with an initial quantity of 1
-      return [...prevItems, { ...product, quantity: 1 }];
+      return [...prevItems, { ...product, itemsToBuy: 1 }];
     });
   };
 
-  const removeFromCart = (productId) => {
+  const removeFromCart = (ProductId) => {
     setCartItems((prevItems) =>
       prevItems.reduce((acc, item) => {
-        if (item.productId === productId) {
-          if (item.quantity > 1) {
-            acc.push({ ...item, quantity: item.quantity - 1 });
+        if (item.ProductId === ProductId) {
+          if (item.itemsToBuy > 1) {
+            acc.push({ ...item, itemsToBuy: item.itemsToBuy - 1 });
           }
           return acc;
         }
@@ -37,30 +37,42 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const updateCartItemQuantity = (productId, quantity) => {
+  const updateCartItemQuantity = (ProductId, itemsToBuy) => {
     setCartItems((prevItems) =>
-      prevItems.map(item =>
-        item.productId === productId ? { ...item, quantity } : item
+      prevItems.map((item) =>
+        item.ProductId === ProductId ? { ...item, itemsToBuy } : item
       )
     );
   };
 
-  const removeCartItem = (productId) => {
-    setCartItems((prevItems) => prevItems.filter(item => item.productId !== productId));
+  const removeCartItem = (ProductId) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.ProductId !== ProductId));
   };
 
-  const confirmOrder = () => {
-    // Move items from cart to orders and clear cart
-    setOrders((prevOrders) => [...prevOrders, ...cartItems]);
+  const confirmOrder = (deliveryAddress) => {
+    console.log('deliveryAddress: ', deliveryAddress);
+    const totalOrderPrice = cartItems.reduce(
+      (total, item) => total + item.price * item.itemsToBuy,
+      0
+    );
+
+    const newOrder = {
+      id: orders.length + 1,
+      items: [...cartItems],
+      totalPrice: totalOrderPrice,
+      deliveryAddress,
+      createdAt: new Date().toISOString(),
+    };
+
+    setOrders((prevOrders) => [...prevOrders, newOrder]);
     setCartItems([]);
-    console.log("Order confirmed with items:", cartItems);
   };
 
   return (
     <CartContext.Provider
       value={{
         cartItems,
-        orders, // Provide orders to the context
+        orders,
         addToCart,
         removeFromCart,
         updateCartItemQuantity,
