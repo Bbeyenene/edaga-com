@@ -1,0 +1,182 @@
+[
+  {
+    "productId": "1",
+    "productName": "Wireless Headphones",
+    "productImage": "/images/headphones.webp",
+    "productDescription": "High-quality wireless headphones with noise cancellation.Portable Bluetooth speaker with excellent sound quality and long battery life.Portable Bluetooth speaker with excellent sound quality and long battery life.Portable Bluetooth speaker with excellent sound quality and long battery life.Portable Bluetooth speaker with excellent sound quality and long battery life.Portable Bluetooth speaker with excellent sound quality and long battery life.Portable Bluetooth speaker with excellent sound quality and long battery life.Portable Bluetooth speaker with excellent sound quality and long battery life.Portable Bluetooth speaker with excellent sound quality and long battery life.",
+    "sellerId": "Tesfai",
+    "price": 99.99,
+    "category": "Electronics"
+  },
+  {
+    "productId": "2",
+    "productName": "Organic Coffee Beans",
+    "productImage": "/images/coffee.webp",
+    "productDescription": "Freshly roasted organic coffee beans from Colombia.",
+    "sellerId": "Mahi",
+    "price": 25.50,
+    "category": "Groceries"
+  },
+  {
+    "productId": "3",
+    "productName": "Smart Fitness Watch",
+    "productImage": "/images/fitness_watch.webp",
+    "productDescription": "Track your fitness activities and monitor your health metrics with this sleek smart watch. fadfadadffdfafa",
+    "sellerId": "Semere",
+    "price": 149.99,
+    "category": "Wearables"
+  },
+  {
+    "productId": "4",
+    "productName": "Eco-Friendly Water Bottle",
+    "productImage": "/images/water_bottle.webp",
+    "productDescription": "Reusable and sustainable water bottle made from stainless steel.",
+    "sellerId": "Nefret",
+    "price": 19.99,
+    "category": "Home & Kitchen"
+  },
+  {
+    "productId": "5",
+    "productName": "Bluetooth Speaker",
+    "productImage": "/images/speaker.webp",
+    "productDescription": "Portable Bluetooth speaker with excellent sound quality and long battery life.",
+    "sellerId": "Almaz",
+    "price": 45.00,
+    "category": "Electronics"
+  },
+  {
+    "productId": "6",
+    "productName": "Organic Green Tea",
+    "productImage": "/images/green_tea.webp",
+    "productDescription": "Refreshing organic green tea sourced from the finest plantations.",
+    "sellerId": "Bekele",
+    "price": 15.75,
+    "category": "Groceries"
+  },
+  {
+    "productId": "7",
+    "productName": "Yoga Mat",
+    "productImage": "/images/yoga_mat.webp",
+    "productDescription": "Non-slip yoga mat with comfortable cushioning for all your workout needs.",
+    "sellerId": "Eleni",
+    "price": 30.00,
+    "category": "Fitness"
+  },
+  {
+    "productId": "8",
+    "productName": "Stainless Steel Cookware Set",
+    "productImage": "/images/cookware_set.webp",
+    "productDescription": "Durable and versatile cookware set suitable for all stove types.",
+    "sellerId": "Kebede",
+    "price": 120.00,
+    "category": "Home & Kitchen"
+  },
+  {
+    "productId": "9",
+    "productName": "Wireless Charging Pad",
+    "productImage": "/images/charging_pad.webp",
+    "productDescription": "Fast wireless charging pad compatible with all Qi-enabled devices.",
+    "sellerId": "Selam",
+    "price": 25.99,
+    "category": "Electronics"
+  },
+  {
+    "productId": "10",
+    "productName": "Organic Almond Butter",
+    "productImage": "/images/almond_butter.webp",
+    "productDescription": "Creamy organic almond butter with no added sugars or preservatives.",
+    "sellerId": "Bereket",
+    "price": 12.50,
+    "category": "Groceries"
+  },
+  {
+    "productId": "11",
+    "productName": "LED Desk Lamp",
+    "productImage": "/images/desk_lamp.webp",
+    "productDescription": "Adjustable LED desk lamp with multiple brightness settings and USB charging port.",
+    "sellerId": "Haymanot",
+    "price": 35.00,
+    "category": "Office Supplies"
+  },
+  {
+    "productId": "12",
+    "productName": "Reusable Silicone Food Bags",
+    "productImage": "/images/silicone_bags.webp",
+    "productDescription": "Set of 5 reusable silicone food bags perfect for storage and meal prep.",
+    "sellerId": "Mulu",
+    "price": 22.99,
+    "category": "Home & Kitchen"
+  },
+  {
+    "productId": "13",
+    "productName": "Noise-Cancelling Earbuds",
+    "productImage": "/images/earbuds.webp",
+    "productDescription": "Compact earbuds with active noise cancellation and superior sound quality.",
+    "sellerId": "Abebe",
+    "price": 79.99,
+    "category": "Electronics"
+  },
+  {
+    "productId": "14",
+    "productName": "Organic Honey",
+    "productImage": "/images/honey.webp",
+    "productDescription": "Pure organic honey harvested from wildflowers, rich in natural antioxidants.",
+    "sellerId": "Saba",
+    "price": 18.00,
+    "category": "Groceries"
+  },
+  {
+    "productId": "15",
+    "productName": "Adjustable Dumbbell Set",
+    "productImage": "/images/dumbbell_set.webp",
+    "productDescription": "Space-saving adjustable dumbbell set for versatile home workouts.",
+    "sellerId": "Fikirte",
+    "price": 250.00,
+    "category": "Fitness"
+  },
+  {
+    "productId": "16",
+    "productName": "Wireless Mouse",
+    "productImage": "/images/wireless_mouse.webp",
+    "productDescription": "Ergonomic wireless mouse with adjustable DPI settings.",
+    "sellerId": "Selamawit",
+    "price": 29.99,
+    "category": "Electronics"
+  },
+  {
+    "productId": "17",
+    "productName": "Digital Photo Frame",
+    "productImage": "/images/photo_frame.webp",
+    "productDescription": "High-resolution digital photo frame with Wi-Fi connectivity and slideshow features.",
+    "sellerId": "Netsanet",
+    "price": 60.00,
+    "category": "Home & Kitchen"
+  },
+  {
+    "productId": "18",
+    "productName": "Portable Power Bank",
+    "productImage": "/images/power_bank.webp",
+    "productDescription": "Compact and lightweight power bank with fast charging capabilities.",
+    "sellerId": "Girma",
+    "price": 20.00,
+    "category": "Electronics"
+  },
+  {
+    "productId": "19",
+    "productName": "Herbal Shampoo",
+    "productImage": "/images/shampoo.webp",
+    "productDescription": "Organic herbal shampoo that promotes healthy hair growth and scalp care.",
+    "sellerId": "Mehari",
+    "price": 14.99,
+    "category": "Personal Care"
+  },
+  {
+    "productId": "20",
+    "productName": "Ceramic Dinnerware Set",
+    "productImage": "/images/dinnerware_set.webp",
+    "productDescription": "Elegant ceramic dinnerware set with four plates, bowls, and mugs.",
+    "sellerId": "Winta",
+    "price": 85.00,
+    "category": "Home & Kitchen"
+  }
+]

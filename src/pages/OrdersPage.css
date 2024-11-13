@@ -1,0 +1,56 @@
+/* src/pages/OrdersPage.css */
+
+.orders-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.order-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-item {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Progress Bar */
+.progress-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  font-weight: 500;
+  color: #aaa;
+  border-bottom: 3px solid #ddd;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.step.active {
+  color: #28a745;
+  border-bottom: 3px solid #28a745;
+}
+
+.order-item h3 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.order-item p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
