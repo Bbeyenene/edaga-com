@@ -1,8 +1,6 @@
-// src/pages/CartPage.jsx
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
-import { useNavigate } from "react-router-dom";
 import ProgressBar from "../components/cart/ProgressBar";
 import CartItems from "../components/cart/CartItems";
 import DeliveryOptions from "../components/cart/DeliveryOptions";
@@ -22,23 +20,12 @@ const CartPage = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // Group cart items by product and calculate quantities
-  console.log('cartItems :', cartItems);
-  const groupedCartItems = cartItems?.reduce((acc, item) => {
-    const foundItem = acc.find((i) => i.productName === item.productName);
-    if (foundItem) {
-      foundItem.quantity += 1;
-    } else {
-      acc.push({ ...item, quantity: 1 });
-    }
-    return acc;
-  }, []);
-
-  // Calculate total price based on quantity
-  const totalPrice = groupedCartItems.reduce(
-    (sum, item, index) => sum + (selectedItems[index] ? item.price * item.quantity : 0),
+  // Calculate total price per item and overall total
+  const totalPrice = cartItems.reduce(
+    (sum, item, index) => sum + (selectedItems[index] ? item.price * item.itemsToBuy : 0),
     0
   );
+
   const deliveryCost = deliveryOption === "paid" ? 7.99 : 0;
   const finalTotal = totalPrice + deliveryCost;
 
@@ -87,8 +74,11 @@ const CartPage = () => {
     });
   };
 
-  const handleConfirmOrder = () => {
-    confirmOrder(groupedCartItems.filter((_, index) => selectedItems[index]));
+  const handleConfirmOrder = (e) => {
+    e.preventDefault();
+    console.log("Confirming order...", e);
+
+    confirmOrder( address);
     navigate("/orders");
   };
 
@@ -97,7 +87,7 @@ const CartPage = () => {
       {cartItems.length === 0 ? (
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
           <p>Your cart is empty. &nbsp;&nbsp;</p>
-          <Link to="/" style={{ cursor: 'pointer' }}> Please Select Product</Link>
+          <Link to="/" style={{ cursor: 'pointer' }}>Please Select Product</Link>
         </div>
       ) : (
         <>
@@ -106,7 +96,7 @@ const CartPage = () => {
           {currentStep === 0 && (
             <>
               <CartItems
-                cartItems={cartItems} // Pass grouped items to CartItems component
+                cartItems={cartItems} // Pass cart items with quantity to CartItems component
                 selectedItems={selectedItems}
                 toggleSelectItem={toggleSelectItem}
                 error={errors.selectedItems}

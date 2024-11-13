@@ -17,8 +17,8 @@ const CartItems = ({ cartItems, selectedItems, toggleSelectItem, error }) => (
             <span className="product-name">{item.productName}</span> 
             
           </label>
-          <p><strong>Qty:</strong> <span style={{color:'blue'}}>{item.quantity}</span> </p>
-          <p className="cart-item-price">Price: ${item.price.toFixed(2)}</p>
+          <p><strong>Qty:</strong> <span style={{color:'blue'}}>{item.itemsToBuy}</span> </p>
+          <p className="cart-item-price">Price: ${(item.itemsToBuy*item.price).toFixed(2)}</p>
         </li>
       ))}
     </ul>

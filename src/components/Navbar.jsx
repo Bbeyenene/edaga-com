@@ -28,7 +28,7 @@ const Navbar = () => {
 
   useEffect(() => {
     // Calculate total quantity in cart
-    const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    const totalQuantity = cartItems.reduce((sum, item) => sum + item.itemsToBuy, 0);
     setCartCount(totalQuantity);
   }, [cartItems]);
 
