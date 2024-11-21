@@ -1,49 +1,80 @@
-// src/App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ProductsProvider } from './contexts/ProductsContext';
-import { CartProvider } from './contexts/CartContext';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Home from './pages/Home';
-import CartPage from './pages/CartPage';
-import OrdersPage from './pages/OrdersPage';
-import Contact from './pages/Contact';
-import About from './pages/About';
-import Navbar from './components/Navbar';
-import LandingPage from './pages/LandingPage';
-import Login from './pages/Login';
-import AddProduct from "./components/product/AddProduct"; // 
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useOktaAuth, LoginCallback } from "@okta/okta-react";
+import Navbar from "./components/Navbar";
+import LandingPage from "./pages/LandingPage";
+import Login from "./pages/Login";
+import CartPage from "./pages/CartPage";
+import OrdersPage from "./pages/OrdersPage";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
+import AddProduct from "./components/product/AddProduct";
+import Home from "./pages/Home";
+import "./App.css";
 
-
-function App() {
+const App = () => {
   return (
-    <AuthProvider>
-      <ProductsProvider>
-        <CartProvider> {/* Wrap Router with CartProvider */}
-          <Router>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/orders" element={<OrdersPage />} />
-              <Route path="/contacts" element={<Contact />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/add" element={<AddProduct />} /> 
-              <Route path="/secure" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </Router>
-        </CartProvider>
-      </ProductsProvider>
-    </AuthProvider>
-  );
-}
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/login/callback" element={<LoginCallback />} />
 
-// ProtectedRoute Component to protect seller dashboard
+        {/* Public routes */}
+        <Route path="/about" element={<About />} />
+        <Route path="/contacts" element={<Contact />} />
+
+        {/* Secure routes */}
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <OrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add"
+          element={
+            <ProtectedRoute>
+              <AddProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/secure"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
+  );
+};
+
+// ProtectedRoute Component to protect routes
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth();
-  return user && user.role === 'seller' ? children : <Navigate to="/login" />;
+  const { authState } = useOktaAuth();
+
+  if (!authState || authState.isPending) {
+    return <div>Loading...</div>; // Handle loading state
+  }
+
+  return authState.isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 export default App;

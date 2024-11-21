@@ -1,40 +1,42 @@
-// src/contexts/AuthContext.jsx
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useOktaAuth } from "@okta/okta-react";
 
 const AuthContext = createContext();
 
-// Custom hook to use the AuthContext
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
-
-// AuthProvider component to wrap around the app
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // User object: { username, role }
+  const { oktaAuth, authState } = useOktaAuth();
+  const [user, setUser] = useState(null);
 
-  // Mock login function
-  const login = (username, password) => {
-    // Implement your authentication logic here (e.g., API call)
-    // For demonstration, assume any username/password combination is valid
-    if (username && password) {
-      // Determine role based on username or other criteria
-      const role = username.toLowerCase().includes('seller') ? 'seller' : 'buyer';
-      setUser({ username, role });
-      return { success: true };
+  // Wait for Security to initialize properly
+  useEffect(() => {
+    if (!authState) return; // Avoid uninitialized states
+    if (authState.isAuthenticated) {
+      oktaAuth.getUser().then(setUser);
     } else {
-      return { success: false, message: 'Invalid credentials' };
+      setUser(null);
     }
-  };
-
-  // Logout function
-  const logout = () => {
-    setUser(null);
-    // Additionally, clear any stored tokens or data if applicable
-  };
+  }, [authState, oktaAuth]);
+  useEffect(() => {
+    console.log("authState", authState);
+    console.log("oktaAuth", oktaAuth);
+  }, [authState, oktaAuth]);
+  
+  // Provide login and logout methods
+  const login = () => oktaAuth.signInWithRedirect();
+  const logout = () => oktaAuth.signOut();
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, authState, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+// Custom hook for accessing AuthContext
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider.");
+  }
+  return context;
 };

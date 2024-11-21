@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -11,10 +10,9 @@ import {
   FaBars,
   FaTimes,
   FaChevronDown,
-} from "react-icons/fa"; // Removed FaHome
+} from "react-icons/fa";
 import { RiApps2AddLine } from "react-icons/ri";
-
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "..//contexts/AuthContext";
 import { CartContext } from "../contexts/CartContext";
 import "./Navbar.css";
 
@@ -23,7 +21,7 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  const { user } = useAuth();
+  const { user, login, logout } = useAuth(); // Fixed useAuth context
   const { cartItems } = useContext(CartContext);
 
   useEffect(() => {
@@ -41,6 +39,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    logout(); // Log out using the AuthContext
     navigate("/");
     setIsMobile(false);
     setIsDropdownOpen(false);
@@ -69,8 +68,7 @@ const Navbar = () => {
         {isMobile ? <FaTimes /> : <FaBars />}
       </div>
       <ul className={isMobile ? "navbar-links mobile" : "navbar-links"}>
-        {/* Removed Home link */}
-
+        {/* Dashboard Dropdown */}
         {user && (user.role === "buyer" || user.role === "seller") && (
           <li className="dropdown">
             <div
@@ -118,6 +116,8 @@ const Navbar = () => {
             </ul>
           </li>
         )}
+
+        {/* Add Product */}
         <li>
           <NavLink
             to="/add"
@@ -128,8 +128,8 @@ const Navbar = () => {
           </NavLink>
         </li>
 
+        {/* Cart */}
         <li>
-
           <NavLink
             to="/cart"
             className="nav-link"
@@ -160,6 +160,8 @@ const Navbar = () => {
             )}
           </NavLink>
         </li>
+
+        {/* About */}
         <li>
           <NavLink
             to="/about"
@@ -169,6 +171,8 @@ const Navbar = () => {
             <FaInfoCircle className="icon" /> About
           </NavLink>
         </li>
+
+        {/* Contact */}
         <li>
           <NavLink
             to="/contacts"
@@ -178,20 +182,23 @@ const Navbar = () => {
             <FaEnvelope className="icon" /> Contact
           </NavLink>
         </li>
-        {!user && (
+
+        {/* Login or Logout */}
+        {!user ? (
           <li>
-            <NavLink
-              to="/login"
-              className="nav-link"
-              onClick={() => setIsMobile(false)}
+            <button
+              className="login-button nav-link"
+              onClick={() => {
+                setIsMobile(false);
+                login(); // Redirect to Okta login
+              }}
             >
               <FaSignInAlt className="icon" /> Login
-            </NavLink>
+            </button>
           </li>
-        )}
-        {user && (
+        ) : (
           <li>
-            <button className="logout-button" onClick={handleLogout}>
+            <button className="logout-button nav-link" onClick={handleLogout}>
               <FaSignOutAlt className="icon" /> Logout
             </button>
           </li>
