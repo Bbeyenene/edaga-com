@@ -3,14 +3,17 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useOktaAuth, LoginCallback } from "@okta/okta-react";
 import Navbar from "./components/Navbar";
 import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
+// import Login from "./pages/Login";
 import CartPage from "./pages/CartPage";
 import OrdersPage from "./pages/OrdersPage";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import AddProduct from "./components/product/AddProduct";
 import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+
 import "./App.css";
+
 
 const App = () => {
   return (
@@ -18,13 +21,13 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/login/callback" element={<LoginCallback />} />
 
         {/* Public routes */}
         <Route path="/about" element={<About />} />
         <Route path="/contacts" element={<Contact />} />
-
+        <Route path="/signup" element={<Signup />} />
         {/* Secure routes */}
         <Route
           path="/cart"
@@ -58,6 +61,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+
 
         {/* Catch-all redirect */}
         <Route path="*" element={<Navigate to="/" />} />

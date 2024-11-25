@@ -26,7 +26,10 @@ const Navbar = () => {
 
   useEffect(() => {
     // Calculate total quantity in cart
-    const totalQuantity = cartItems.reduce((sum, item) => sum + item.itemsToBuy, 0);
+    const totalQuantity = cartItems.reduce(
+      (sum, item) => sum + item.itemsToBuy,
+      0
+    );
     setCartCount(totalQuantity);
   }, [cartItems]);
 
@@ -84,49 +87,22 @@ const Navbar = () => {
               <FaTachometerAlt className="icon" /> Dashboard{" "}
               <FaChevronDown className="dropdown-icon" />
             </div>
-            <ul className={`dropdown-menu ${isDropdownOpen ? "show" : ""}`}>
-              {user.role === "buyer" && (
-                <li>
-                  <NavLink
-                    to="/buyer/dashboard"
-                    className="dropdown-link"
-                    onClick={() => {
-                      setIsMobile(false);
-                      setIsDropdownOpen(false);
-                    }}
-                  >
-                    Buyer Dashboard
-                  </NavLink>
-                </li>
-              )}
-              {user.role === "seller" && (
-                <li>
-                  <NavLink
-                    to="/seller/dashboard"
-                    className="dropdown-link"
-                    onClick={() => {
-                      setIsMobile(false);
-                      setIsDropdownOpen(false);
-                    }}
-                  >
-                    Seller Dashboard
-                  </NavLink>
-                </li>
-              )}
-            </ul>
           </li>
         )}
 
         {/* Add Product */}
-        <li>
-          <NavLink
-            to="/add"
-            className="nav-link"
-            onClick={() => setIsMobile(false)}
-          >
-            <RiApps2AddLine />
-          </NavLink>
-        </li>
+        {user && user.role === "seller" && (
+          <li>
+            <NavLink
+              to="/add"
+              className="nav-link"
+              onClick={() => setIsMobile(false)}
+            >
+              <RiApps2AddLine />
+            </NavLink>
+          </li>
+        )}
+
 
         {/* Cart */}
         <li>
@@ -161,40 +137,31 @@ const Navbar = () => {
           </NavLink>
         </li>
 
-        {/* About */}
-        <li>
-          <NavLink
-            to="/about"
+        {!user && (
+          <li>
+            <NavLink
+            to="/signup"
             className="nav-link"
+            style={{ display: "flex" }}
             onClick={() => setIsMobile(false)}
           >
-            <FaInfoCircle className="icon" /> About
-          </NavLink>
-        </li>
-
-        {/* Contact */}
-        <li>
-          <NavLink
-            to="/contacts"
-            className="nav-link"
-            onClick={() => setIsMobile(false)}
-          >
-            <FaEnvelope className="icon" /> Contact
-          </NavLink>
-        </li>
+               Signup
+            </NavLink>
+          </li>
+        )}
 
         {/* Login or Logout */}
         {!user ? (
           <li>
-            <button
+            <NavLink
               className="login-button nav-link"
               onClick={() => {
                 setIsMobile(false);
                 login(); // Redirect to Okta login
               }}
             >
-              <FaSignInAlt className="icon" /> Login
-            </button>
+               Login
+            </NavLink>
           </li>
         ) : (
           <li>

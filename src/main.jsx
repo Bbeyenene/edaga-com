@@ -8,6 +8,7 @@ import { oktaConfig } from "./config/oauthConfig";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { CartProvider } from "./contexts/CartContext";
 import { AuthProvider } from "./contexts/AuthContext";
+import { SignupProvider } from "./contexts/SignupContext";
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -18,11 +19,15 @@ const restoreOriginalUri = async (oktaAuth, originalUri) => {
 // Combined Providers Component
 const AppProviders = ({ children }) => (
 
+
   <ProductsProvider>
     <CartProvider>
-      {children}
+      <SignupProvider>
+       {children}
+      </SignupProvider>
     </CartProvider>
   </ProductsProvider>
+
 );
 
 createRoot(document.getElementById("root")).render(

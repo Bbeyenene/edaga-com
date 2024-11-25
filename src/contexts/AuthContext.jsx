@@ -17,8 +17,8 @@ export const AuthProvider = ({ children }) => {
     }
   }, [authState, oktaAuth]);
   useEffect(() => {
-    console.log("authState", authState);
-    console.log("oktaAuth", oktaAuth);
+  //   console.log("authState", authState);
+  //   console.log("oktaAuth", oktaAuth);
   }, [authState, oktaAuth]);
   
   // Provide login and logout methods
