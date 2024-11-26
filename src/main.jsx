@@ -16,6 +16,7 @@ const oktaAuth = new OktaAuth(oktaConfig);
 const restoreOriginalUri = async (oktaAuth, originalUri) => {
   window.location.replace(originalUri || "/");
 };
+
 // Combined Providers Component
 const AppProviders = ({ children }) => (
 
