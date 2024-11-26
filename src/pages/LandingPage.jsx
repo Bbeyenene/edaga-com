@@ -1,5 +1,6 @@
 // src/pages/LandingPage.jsx
 import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { ProductsContext } from "../contexts/ProductsContext";
 import { CartContext } from "../contexts/CartContext";
 import ProductDescription from "../components/ProductDescription";
@@ -22,6 +23,12 @@ const LandingPage = () => {
   
   return (
     <div className="landing-container">
+       <NavLink
+            to="/signup"
+            className="nav-link"
+            onClick={() => setIsMobile(false)}
+          >Signup
+          </NavLink>
       <h2>Available Products</h2>
       <div className="product-grid">
         {products?.map((product) => (

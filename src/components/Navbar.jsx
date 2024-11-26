@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useState, useContext, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -11,10 +10,9 @@ import {
   FaBars,
   FaTimes,
   FaChevronDown,
-} from "react-icons/fa"; // Removed FaHome
+} from "react-icons/fa";
 import { RiApps2AddLine } from "react-icons/ri";
-
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "..//contexts/AuthContext";
 import { CartContext } from "../contexts/CartContext";
 import "./Navbar.css";
 
@@ -23,12 +21,15 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
-  const { user } = useAuth();
+  const { user, login, logout } = useAuth(); // Fixed useAuth context
   const { cartItems } = useContext(CartContext);
 
   useEffect(() => {
     // Calculate total quantity in cart
-    const totalQuantity = cartItems.reduce((sum, item) => sum + item.itemsToBuy, 0);
+    const totalQuantity = cartItems.reduce(
+      (sum, item) => sum + item.itemsToBuy,
+      0
+    );
     setCartCount(totalQuantity);
   }, [cartItems]);
 
@@ -41,6 +42,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    logout(); // Log out using the AuthContext
     navigate("/");
     setIsMobile(false);
     setIsDropdownOpen(false);
@@ -69,8 +71,7 @@ const Navbar = () => {
         {isMobile ? <FaTimes /> : <FaBars />}
       </div>
       <ul className={isMobile ? "navbar-links mobile" : "navbar-links"}>
-        {/* Removed Home link */}
-
+        {/* Dashboard Dropdown */}
         {user && (user.role === "buyer" || user.role === "seller") && (
           <li className="dropdown">
             <div
@@ -86,50 +87,25 @@ const Navbar = () => {
               <FaTachometerAlt className="icon" /> Dashboard{" "}
               <FaChevronDown className="dropdown-icon" />
             </div>
-            <ul className={`dropdown-menu ${isDropdownOpen ? "show" : ""}`}>
-              {user.role === "buyer" && (
-                <li>
-                  <NavLink
-                    to="/buyer/dashboard"
-                    className="dropdown-link"
-                    onClick={() => {
-                      setIsMobile(false);
-                      setIsDropdownOpen(false);
-                    }}
-                  >
-                    Buyer Dashboard
-                  </NavLink>
-                </li>
-              )}
-              {user.role === "seller" && (
-                <li>
-                  <NavLink
-                    to="/seller/dashboard"
-                    className="dropdown-link"
-                    onClick={() => {
-                      setIsMobile(false);
-                      setIsDropdownOpen(false);
-                    }}
-                  >
-                    Seller Dashboard
-                  </NavLink>
-                </li>
-              )}
-            </ul>
           </li>
         )}
-        <li>
-          <NavLink
-            to="/add"
-            className="nav-link"
-            onClick={() => setIsMobile(false)}
-          >
-            <RiApps2AddLine />
-          </NavLink>
-        </li>
 
-        <li>
+        {/* Add Product */}
+        {user && user.role === "seller" && (
+          <li>
+            <NavLink
+              to="/add"
+              className="nav-link"
+              onClick={() => setIsMobile(false)}
+            >
+              <RiApps2AddLine />
+            </NavLink>
+          </li>
+        )}
 
+
+        {/* Cart */}
+        <li>
           <NavLink
             to="/cart"
             className="nav-link"
@@ -160,38 +136,36 @@ const Navbar = () => {
             )}
           </NavLink>
         </li>
-        <li>
-          <NavLink
-            to="/about"
-            className="nav-link"
-            onClick={() => setIsMobile(false)}
-          >
-            <FaInfoCircle className="icon" /> About
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/contacts"
-            className="nav-link"
-            onClick={() => setIsMobile(false)}
-          >
-            <FaEnvelope className="icon" /> Contact
-          </NavLink>
-        </li>
+
         {!user && (
           <li>
             <NavLink
-              to="/login"
-              className="nav-link"
-              onClick={() => setIsMobile(false)}
-            >
-              <FaSignInAlt className="icon" /> Login
+            to="/signup"
+            className="nav-link"
+            style={{ display: "flex" }}
+            onClick={() => setIsMobile(false)}
+          >
+               Signup
             </NavLink>
           </li>
         )}
-        {user && (
+
+        {/* Login or Logout */}
+        {!user ? (
           <li>
-            <button className="logout-button" onClick={handleLogout}>
+            <NavLink
+              className="login-button nav-link"
+              onClick={() => {
+                setIsMobile(false);
+                login(); // Redirect to Okta login
+              }}
+            >
+               Login
+            </NavLink>
+          </li>
+        ) : (
+          <li>
+            <button className="logout-button nav-link" onClick={handleLogout}>
               <FaSignOutAlt className="icon" /> Logout
             </button>
           </li>
